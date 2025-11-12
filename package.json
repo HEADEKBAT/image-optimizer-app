@@ -1,0 +1,54 @@
+{
+  "name": "image-optimizer-app",
+  "version": "1.0.0",
+  "homepage": "./",
+  "description": "Приложение для оптимизации изображений",
+  "author": "Дмитрий К",
+
+  "main": "dist/main/main.js",
+  "scripts": {
+    "clean": "rimraf dist release",
+    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:electron": "wait-on http://localhost:3000 && tsc && electron .",
+    "dev:react": "react-scripts start",
+     "build": "npm run build:main && npm run build:renderer && npm run copy:renderer",
+    "build:main": "tsc",
+    "build:renderer": "react-scripts build",
+    "copy:renderer": "node scripts/copy-renderer.js",
+    "pack": "npm run clean && npm run build && electron-builder --dir",
+    "dist": "npm run clean && npm run build && electron-builder --win --x64"
+  }
+,
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.32.0",
+    "svgo": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "concurrently": "^8.0.0",
+    "cpx": "^1.5.0",
+    "electron": "latest",
+    "electron-builder": "^24.13.3",
+    "react-scripts": "5.0.1",
+    "rimraf": "^5.0.10",
+    "typescript": "^4.9.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
